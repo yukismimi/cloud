@@ -1,0 +1,32 @@
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: false
+          lower-case-service-id: true
+      routes:
+        - id: consul-route
+          uri: lb://consul-demo
+          predicates:
+          - Path= /gateway/**
+          filters:
+          - StripPrefix=1
+          - name: CircuitBreaker
+            args:
+              name: myCircuitBreaker
+              fallbackUri: forward:/fallback
+
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        instance-id: gateway
+        service-name: ${spring.application.name}
+  application:
+    name: gateway-demo
+server:
+  port: 8080
+management:
+  server:
+    port: 4450

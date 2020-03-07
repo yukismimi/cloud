@@ -1,0 +1,21 @@
+spring:
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        instance-id: consul-2
+        service-name: ${spring.application.name}
+  application:
+    name: consul-demo
+  datasource:
+    url: jdbc:mysql://localhost:3306/test
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+
+management:
+  server:
+    port: 4452
+server:
+  port: 8082
