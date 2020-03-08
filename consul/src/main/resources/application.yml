@@ -4,18 +4,18 @@ spring:
       host: localhost
       port: 8500
       discovery:
-        instance-id: consul-2
+        instance-id: consul-1
         service-name: ${spring.application.name}
   application:
     name: consul-demo
   datasource:
-    url: jdbc:mysql://localhost:3306/test
+    url: jdbc:mysql://localhost:3306/test?serverTimezone=UTC
     username: root
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 management:
   server:
-    port: 4452
+    port: 4451
 server:
-  port: 8082
+  port: 8081
