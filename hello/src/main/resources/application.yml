@@ -1,0 +1,20 @@
+server:
+  port: 8082
+#management:
+#  server:
+#    port: 4452
+spring:
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        instance-id: hello-service
+        service-name: ${spring.application.name}
+  application:
+    name: hello-service
+  zipkin:
+    base-url:
+  sleuth:
+    sampler:
+      probability: 0.1
