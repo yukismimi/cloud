@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: monitor
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        instance-id: monitor
+        service-name: ${spring.application.name}
+  boot:
+    admin:
+      discovery:
+        ignored-services: ${spring.application.name}
+server:
+  port: 8900
