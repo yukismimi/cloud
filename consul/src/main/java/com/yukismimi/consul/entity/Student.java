@@ -10,7 +10,7 @@ import javax.persistence.Id;
 public class Student {
 
     @Id
-    private int id;
+    private long id;
     private String name;
     private int age;
 }

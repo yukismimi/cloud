@@ -9,6 +9,13 @@ spring:
 #          username:
 #          password:
           search-paths: config-repo
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        enabled: true
+        instance-id: config-server
+        service-name: ${spring.application.name}
   application:
     name: config-server
 

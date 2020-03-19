@@ -1,1 +1,3 @@
 rootProject.name = 'cloud'
+include 'consul', 'gateway', 'config-client', 'config-server', 'monitor', 'common', 'security', 'hello'
+
