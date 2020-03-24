@@ -9,14 +9,33 @@ spring:
         - id: consul-route
           uri: lb://consul-demo
           predicates:
-          - Path= /gateway/**
+          - Path= /gateway/consul/**
           filters:
-          - StripPrefix=1
+          - StripPrefix=2
           - name: CircuitBreaker
             args:
               name: myCircuitBreaker
               fallbackUri: forward:/fallback
-
+        - id: user-service-route
+          uri: lb://user-service
+          predicates:
+            - Path= /gateway/user/**
+          filters:
+            - StripPrefix=1
+            - name: CircuitBreaker
+              args:
+                name: myCircuitBreaker
+                fallbackUri: forward:/fallback
+        - id: goods-service-route
+          uri: lb://goods-service
+          predicates:
+            - Path= /gateway/goods/**
+          filters:
+            - StripPrefix=1
+            - name: CircuitBreaker
+              args:
+                name: myCircuitBreaker
+                fallbackUri: forward:/fallback
     consul:
       host: localhost
       port: 8500
