@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
         return userDto;
     }
 
-    private UserDetailz getUserByName(String username) {
+    public UserDetailz getUserByName(String username) {
         User user = repository.findByUsername(username);
         if(user != null){
             return new UserDetailz(user);
