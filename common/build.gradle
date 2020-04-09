@@ -12,13 +12,25 @@ repositories {
     mavenCentral()
 }
 
-jar.enabled = true
+//jar.enabled = true
+
+bootJar {
+    enabled = false
+}
+
+jar {
+    enabled = true
+}
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
+//    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:2.2.2.RELEASE'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
+    compile group: 'cn.hutool', name: 'hutool-all', version: '5.2.0'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
 }
 
 test {
