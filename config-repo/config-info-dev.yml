@@ -1,2 +1,7 @@
 spring:
   cloud: yukismimi.com
+  datasource:
+    url: jdbc:mysql://localhost:3306/mall?serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 123456
