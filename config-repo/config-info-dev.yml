@@ -1,5 +1,5 @@
 spring:
-  cloud: yukismimi.com
+  cloud: yukismimi.com-${spring.application.name}
   datasource:
     url: jdbc:mysql://localhost:3306/mall?serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
