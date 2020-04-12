@@ -1,7 +1,28 @@
 spring:
-  cloud: yukismimi.com-${spring.application.name}
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        instance-id: ${spring.application.name}-instance
+        service-name: ${spring.application.name}
   datasource:
     url: jdbc:mysql://localhost:3306/mall?serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: 123456
+
+secure:
+  ignored:
+    urls:
+      - /product/**
+      - /actuator/**
+      - /adress/**
+      - /user/**
+      - /order/**
+      - /stock/**
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
