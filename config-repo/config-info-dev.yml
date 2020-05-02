@@ -23,6 +23,7 @@ secure:
       - /user/**
 #      - /order/**
       - /stock/**
+      - /alipay/**
 management:
   endpoints:
     web:
