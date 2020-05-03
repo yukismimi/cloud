@@ -1,0 +1,25 @@
+server:
+  port: 9040
+spring:
+  #  cloud:
+  #    consul:
+  #      host: localhost
+  #      port: 8500
+  #      discovery:
+  #        instance-id: cart-service-instance
+  #        service-name: ${spring.application.name}
+  application:
+    name: cart-service
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/mall?serverTimezone=UTC
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    username: root
+#    password: 123456
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "*"
+#custom-filter:
+#  urls:
+#    - /cart/all

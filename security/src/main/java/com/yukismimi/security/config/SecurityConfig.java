@@ -1,32 +1,38 @@
 package com.yukismimi.security.config;
 
+import com.yukismimi.security.component.IdUsernameAuthenticationFilter;
 import com.yukismimi.security.component.JwtAuthenticationTokenFilter;
 import com.yukismimi.security.component.RestAuthenticationEntryPoint;
 import com.yukismimi.security.component.RestfulAccessDeniedHandler;
 import com.yukismimi.security.utils.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+@Configuration
+@EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    IgnoreUrlsConfig ignoreUrlsConfig;
-
-//    @Autowired
-//    JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
+    private IgnoreUrlsConfig ignoreUrlsConfig;
 
     @Autowired
-    RestfulAccessDeniedHandler restfulAccessDeniedHandler;
+    private IdUsernameAuthenticationFilter idUsernameAuthenticationFilter;
 
     @Autowired
-    RestAuthenticationEntryPoint restAuthenticationEntryPoint;
+    private RestfulAccessDeniedHandler restfulAccessDeniedHandler;
+
+    @Autowired
+    private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -36,7 +42,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         });
         //允许跨域请求的OPTIONS请求
         registry.antMatchers(HttpMethod.OPTIONS)
-                .permitAll();
+                .permitAll()
+                .and()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         // 任何请求需要身份认证
         registry.and()
                 .authorizeRequests()
@@ -45,7 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf()
                 .disable()
-                .addFilterBefore(jwtAuthenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(idUsernameAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling()
                 .accessDeniedHandler(restfulAccessDeniedHandler)
                 .authenticationEntryPoint(restAuthenticationEntryPoint);
@@ -62,6 +71,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
+    public IdUsernameAuthenticationFilter idUsernameAuthenticationFilter() {
+        return new IdUsernameAuthenticationFilter();
+    }
+
+    @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
@@ -72,7 +86,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public RestfulAccessDeniedHandler restfulAccessDeniedHandler(){
+    public RestfulAccessDeniedHandler restfulAccessDeniedHandler() {
         return new RestfulAccessDeniedHandler();
     }
 

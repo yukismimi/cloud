@@ -1,0 +1,31 @@
+server:
+  port: 9050
+spring:
+  #  cloud:
+  #    consul:
+  #      host: localhost
+  #      port: 8500
+  #      discovery:
+  #        instance-id: address-service-instance
+  #        service-name: ${spring.application.name}
+  application:
+    name: address-service
+  #  datasource:
+  #    url: jdbc:mysql://localhost:3306/mall?serverTimezone=UTC
+  #    driver-class-name: com.mysql.cj.jdbc.Driver
+  #    username: root
+  #    password: 123456
+  #management:
+  #  endpoints:
+  #    web:
+  #      exposure:
+  #        include: "*"
+  #custom-filter:
+  #  urls:
+  #    - /address/*
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: root
+    password: 123456
+    virtual-host: mall

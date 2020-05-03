@@ -1,0 +1,33 @@
+spring:
+  #  cloud:
+  #    consul:
+  #      host: localhost
+  #      port: 8500
+  #      discovery:
+  #        instance-id: goods-service-instance-1
+  #        service-name: ${spring.application.name}
+  application:
+    name: product-service
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/mall?serverTimezone=UTC
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    username: root
+#    password: 123456
+server:
+  port: 9010
+#secure:
+#  ignored:
+#    urls:
+#      - /product/**
+#      - /actuator/**
+jwt:
+  tokenHeader: Authorization #JWT存储的请求头
+  secret: product-service-secret #JWT加解密使用的密钥
+  expiration: 3600 #JWT的超期限时间(60*60*24)
+  tokenHead: Bearer  #JWT负载中拿到开头
+
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "*"

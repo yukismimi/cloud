@@ -36,8 +36,7 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     // https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt
     compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
-    // https://mvnrepository.com/artifact/cn.hutool/hutool-all
-    compile group: 'cn.hutool', name: 'hutool-all', version: '5.2.3'
+
 }
 
 dependencyManagement {

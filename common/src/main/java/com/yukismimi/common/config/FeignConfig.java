@@ -1,6 +1,6 @@
 package com.yukismimi.common.config;
 
-import com.yukismimi.common.utils.ThreadLocalUtils;
+import com.yukismimi.common.utils.SecurityUtil;
 import feign.RequestInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,10 +13,10 @@ public class FeignConfig {
     @Lazy
     public RequestInterceptor requestInterceptor() {
         return requestTemplate -> {
-            System.out.println(ThreadLocalUtils.getCurrentThreadUserId().toString());
-            System.out.println(ThreadLocalUtils.getCurrentThreadUsername());
-            requestTemplate.header("id", ThreadLocalUtils.getCurrentThreadUserId().toString());
-            requestTemplate.header("username", ThreadLocalUtils.getCurrentThreadUsername());
+            System.out.println(SecurityUtil.getUsername());
+            System.out.println(SecurityUtil.getUserId());
+            requestTemplate.header("id", SecurityUtil.getUserId().toString());
+            requestTemplate.header("username", SecurityUtil.getUsername());
         };
     }
 }

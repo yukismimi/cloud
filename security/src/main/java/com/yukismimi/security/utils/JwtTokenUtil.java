@@ -1,5 +1,6 @@
 package com.yukismimi.security.utils;
 
+import cn.hutool.core.date.DateUtil;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -160,7 +161,7 @@ public class JwtTokenUtil {
         Date created = claims.get(CLAIM_KEY_CREATED, Date.class);
         Date refreshDate = new Date();
         //刷新时间在创建时间的指定时间内
-        if(refreshDate.after(created)&&refreshDate.before(new Date(created.getTime()+time))){
+        if(refreshDate.after(created)&&refreshDate.before(DateUtil.offsetSecond(created,time))){
             return true;
         }
         return false;

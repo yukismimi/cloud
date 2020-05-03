@@ -1,2 +1,4 @@
-#org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-#com.yukismimi.common.config.CommonConfig
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.yukismimi.common.config.FeignConfig,\
+com.yukismimi.common.config.SecurityConfig,\
+com.yukismimi.common.component.IdUsernameAuthenticationFilter

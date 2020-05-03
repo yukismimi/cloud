@@ -26,10 +26,60 @@ spring:
               args:
                 name: myCircuitBreaker
                 fallbackUri: forward:/fallback
-        - id: goods-service-route
-          uri: lb://goods-service
+        - id: product-service-route
+          uri: lb://product-service
           predicates:
-            - Path= /gateway/goods/**
+            - Path= /gateway/product/**
+          filters:
+            - StripPrefix=1
+            - name: CircuitBreaker
+              args:
+                name: myCircuitBreaker
+                fallbackUri: forward:/fallback
+        - id: cart-service-route
+          uri: lb://cart-service
+          predicates:
+            - Path= /gateway/cart/**
+          filters:
+            - StripPrefix=1
+            - name: CircuitBreaker
+              args:
+                name: myCircuitBreaker
+                fallbackUri: forward:/fallback
+        - id: stock-service-route
+          uri: lb://stock-service
+          predicates:
+            - Path= /gateway/stock/**
+          filters:
+            - StripPrefix=1
+            - name: CircuitBreaker
+              args:
+                name: myCircuitBreaker
+                fallbackUri: forward:/fallback
+        - id: order-service-route
+          uri: lb://order-service
+          predicates:
+            - Path= /gateway/order/**
+          filters:
+            - StripPrefix=1
+            - name: CircuitBreaker
+              args:
+                name: myCircuitBreaker
+                fallbackUri: forward:/fallback
+        - id: address-service-route
+          uri: lb://address-service
+          predicates:
+            - Path= /gateway/address/**
+          filters:
+            - StripPrefix=1
+            - name: CircuitBreaker
+              args:
+                name: myCircuitBreaker
+                fallbackUri: forward:/fallback
+        - id: pay-service-route
+          uri: lb://pay-service
+          predicates:
+            - Path= /gateway/alipay/**
           filters:
             - StripPrefix=1
             - name: CircuitBreaker
@@ -46,6 +96,21 @@ spring:
     name: gateway-demo
 server:
   port: 8080
-#management:
-#  server:
-#    port: 4450
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+token:
+  ignored:
+    urls: #使用正则匹配url
+      - /gateway/product/.*
+      - /gateway/user/login
+      - /gateway/user/register
+#      - /gateway/alipay/.*
+
+jwt:
+  tokenHeader: Authorization #JWT存储的请求头
+  secret: yukismimi #JWT加解密使用的密钥
+  expiration: 86400 #JWT的超期限时间(60*60*24)
+  tokenHead: Yuki  #JWT负载中拿到开头
