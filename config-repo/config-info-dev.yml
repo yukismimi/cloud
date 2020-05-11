@@ -24,7 +24,8 @@ secure:
 #      - /order/**
       - /stock/**
       - /alipay/**
-      - /admin/**
+      - /oms/**
+      - /ums/**
 management:
   endpoints:
     web:
